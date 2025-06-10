@@ -23,7 +23,7 @@ pipeline {
                 // Consider adding test execution
                 // sh 'mvn test' 
             }
-            
+        }            
             // Optional post-build actions for this stage
             post {
                 success {
