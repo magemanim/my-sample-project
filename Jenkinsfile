@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build WAR with Maven') {
             steps {
-                sh 'sudo mvn clean package'
+                sh 'mvn clean package'
             }
         }
 
