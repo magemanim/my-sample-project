@@ -22,17 +22,11 @@ pipeline {
             }
         }
 
-        stage('Deploy WAR to Tomcat') {
-            steps {
-                sh 'cp target/*.war $DEPLOY_DIR'
-                echo 'WAR file deployed to Tomcat!'
-            }
-        }
     }
 
     post {
         success {
-            echo 'Build & Deployment successful!'
+            echo 'Build successful!'
         }
         failure {
             echo 'Something went wrong!'
