@@ -1,11 +1,10 @@
 pipeline {
     agent any
-    
-    // Add tools configuration
+
     tools {
-        maven 'Maven-3.9.10' // Must match exact name from Jenkins Global Tool Configuration
+        maven 'Maven-3.9.10'   // As configured in Jenkins Global Tools
     }
-    
+
     environment {
         DEPLOY_DIR = "/opt/tomcat/webapps"
     }
@@ -13,35 +12,30 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git url: 'https://github.com/magemanim/my-sample-project.git',
+                git 'https://github.com/magemanim/my-sample-project.git'
             }
         }
 
         stage('Build WAR with Maven') {
             steps {
                 sh 'mvn clean package'
-                // Consider adding test execution
-                // sh 'mvn test' 
             }
-        }            
-            // Optional post-build actions for this stage
-            post {
-                success {
-                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-                }
+        }
+
+        stage('Deploy WAR to Tomcat') {
+            steps {
+                sh 'cp target/*.war $DEPLOY_DIR'
+                echo 'WAR file deployed to Tomcat!'
             }
         }
     }
 
     post {
         success {
-            echo 'Build successful!'
-            // You could add deployment steps here
+            echo 'Build & Deployment successful!'
         }
         failure {
-            echo 'Build failed!'
-            // Consider adding email notification
-            // emailext body: 'Build failed!', subject: 'Build Failed', to: 'team@example.com'
+            echo 'Something went wrong!'
         }
     }
 }
