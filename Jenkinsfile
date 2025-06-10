@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git 'https://github.com/your-user/sample-java-project.git'
+                git 'https://github.com/magemanim/my-sample-project.git'
             }
         }
 
