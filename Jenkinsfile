@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven-3.8.6'   // As configured in Jenkins Global Tools
-    }
-
     environment {
         DEPLOY_DIR = "/opt/tomcat/webapps"
     }
